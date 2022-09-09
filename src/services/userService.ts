@@ -1,17 +1,17 @@
-import {Users} from "@prisma/client";
 import * as userRepository from "../repositories/userRepository.js";
+import { CreateUserData } from "../Types/userTypes.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-export type CreateUserData = Omit<Users, "id">;
 
-async function insert(CreateUserData: CreateUserData){
+
+async function createUser(CreateUserData: CreateUserData){
     const existingEmail = await userRepository.findByEmail(CreateUserData.email);
     if(existingEmail){
         throw { code: "Conflict", message: "Email already registered"}
     }
 
-    await userRepository.insert(CreateUserData);
+    await userRepository.createUser(CreateUserData);
 }
 
 async function signIn(CreateUserData: CreateUserData){
@@ -30,6 +30,6 @@ async function signIn(CreateUserData: CreateUserData){
 }
 
 export{
-    insert,
+    createUser,
     signIn
 }

@@ -14,5 +14,6 @@ export default function errorHandler (error:any, req: Request, res: Response, ne
     return res.status(401).send(error.message)
   }
 
+  console.log(error)
   res.sendStatus(500);
 }
