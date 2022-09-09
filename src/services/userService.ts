@@ -7,7 +7,7 @@ export type CreateUserData = Omit<Users, "id">;
 
 async function insert(CreateUserData: CreateUserData){
     const existingEmail = await userRepository.findByEmail(CreateUserData.email);
-    if(!existingEmail){
+    if(existingEmail){
         throw { code: "Conflict", message: "Email already registered"}
     }
 
