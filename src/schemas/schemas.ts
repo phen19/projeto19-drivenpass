@@ -27,6 +27,11 @@ export const schemas = {
     password: joi.string().regex(/^\d+$/).min(4).max(6).required(),
     isVirtual: joi.boolean().required(),
     type: joi.string().valid('debit', 'credit', 'both')
+  }),
+  wifiSchema: joi.object().keys({
+    networkName: joi.string().required(),
+    title: joi.string().required(),
+    password: joi.string().required(),
   })
 };
 
