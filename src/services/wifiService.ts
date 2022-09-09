@@ -7,7 +7,9 @@ const cryptr = new Cryptr(process.env.SECRET_KEY)
 
 async function getWifisByUserId(userId:number){
     await userCheck(userId)
-    return await wifiRepository.getWifisByUserId(userId)
+    const result = await wifiRepository.getWifisByUserId(userId)
+    result.forEach((el)=> {delete el.password})
+    return result
 }
 
 async function getWifiById(id:number, userId:number){

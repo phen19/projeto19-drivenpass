@@ -8,6 +8,8 @@ const cryptr = new Cryptr(process.env.SECRET_KEY)
 async function getCardsByUserId(userId:number){
     await userCheck(userId)
     const result = await cardRepository.getCardsByUserId(userId)
+    result.forEach((el)=> {delete el.password
+        delete el.securityCode})
     return result
 }
 

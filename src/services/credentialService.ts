@@ -8,6 +8,7 @@ const cryptr = new Cryptr(process.env.SECRET_KEY)
 async function getCredentialsByUserId(userId:number){
     await userCheck(userId)
     const result = await credentialRepository.getCredentialsByUserId(userId)
+    result.forEach((el)=> {delete el.password})
     return result
 }
 
