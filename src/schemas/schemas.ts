@@ -25,7 +25,7 @@ export const schemas = {
     securityCode: joi.string().regex(/^\d+$/).message(`"Security Code" must contain only numbers`).length(3).required(),
     expireDate: joi.string().length(5).pattern(/^[0-9]{2}\/[0-9]{2}$/).message(`"Expiration Date" must follow format MM/YY`).required(),
     password: joi.string().regex(/^\d+$/).min(4).max(6).required(),
-    isVirtual: joi.boolean().required(),
+    isVirtual: joi.boolean().strict().required(),
     type: joi.string().valid('debit', 'credit', 'both')
   }),
   wifiSchema: joi.object().keys({
