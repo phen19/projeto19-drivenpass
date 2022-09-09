@@ -1,9 +1,9 @@
 import {prisma} from "../database/database.js"
 import { NoteData } from "../Types/safeNotesType.js"
 
-async function getNotesByUserId(id:number){
+async function getNotesByUserId(userId:number){
     return prisma.note.findMany({
-        where: {userId:id}
+        where: {userId}
     })
 }
 

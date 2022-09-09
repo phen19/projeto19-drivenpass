@@ -1,9 +1,9 @@
 import { prisma } from "../database/database.js";
 import { CardData } from "../Types/cardType.js";
 
-async function getCardsByUserId(id:number){
+async function getCardsByUserId(userId:number){
     return prisma.card.findMany({
-        where:{userId:id}
+        where:{userId}
     })
 }
 

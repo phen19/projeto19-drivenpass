@@ -1,9 +1,9 @@
 import { prisma } from "../database/database.js";
 import { WifiData } from "../Types/wifiType.js";
 
-async function getWifisByUserId (id:number){
+async function getWifisByUserId (userId:number){
     return prisma.wifi.findMany({
-        where:{userId:id}
+        where:{userId}
     })
 }
 

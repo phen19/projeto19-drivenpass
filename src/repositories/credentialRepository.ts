@@ -1,9 +1,9 @@
 import {prisma} from "../database/database.js"
 import {CredentialData} from "../Types/credentialType"
 
-async function getCredentialsByUserId(id: number){
+async function getCredentialsByUserId(userId: number){
     return prisma.credential.findMany({
-        where: {userId: id}
+        where: {userId}
     })
 }
 

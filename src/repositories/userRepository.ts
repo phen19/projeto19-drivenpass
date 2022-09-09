@@ -7,9 +7,9 @@ async function findByEmail(email: string) {
   });
 }
 
-async function findById(id: number){
+async function findById(userId: number){
   return prisma.users.findFirst({
-    where:{id}
+    where:{id:userId}
   })
 }
   

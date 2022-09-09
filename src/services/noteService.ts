@@ -1,20 +1,14 @@
 import * as noteRepository from "../repositories/noteRepository.js"
-import * as userRepository from "../repositories/userRepository.js"
+import { userCheck } from "../utils/utils.js"
 import { NoteData} from "../Types/safeNotesType.js"
 
-async function getNotesByUserId(id:number){
-    const existingUser = await userRepository.findById(id)
-    if(!existingUser){
-        throw {code: "NotFound", message: "User not found"}
-    }
-
-    const result = await noteRepository.getNotesByUserId(id)
-    return result
+async function getNotesByUserId(userId:number){
+    await userCheck(userId)
+    return await noteRepository.getNotesByUserId(userId)
 }
 
 async function getNoteById(id:number, userId: number){
-    const result = await validateNote(id, userId)
-    return result
+    return await validateNote(id, userId)
 }
 
 async function createNote(note:NoteData) {
@@ -26,17 +20,15 @@ async function createNote(note:NoteData) {
 }
 
 async function deleteNote(id:number, userId: number){
-    const result = await validateNote(id, userId)
+    await validateNote(id, userId)
     await noteRepository.deleteNote(id)
 }
 
 async function validateNote(id:number, userId:number){
-    const existingNote = await noteRepository.getNoteById(id)
-    if(!existingNote){
+    const result = await noteRepository.getNoteById(id)
+    if(!result){
         throw {code: "NotFound", message: "Note not found"}
     }
-
-    const result =await noteRepository.getNoteById(id)
     if(result.userId !== userId){
         throw {code: "Unauthorized", message: "Note does not belong to this user"}
     }

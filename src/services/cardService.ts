@@ -1,17 +1,13 @@
 import * as cardRepository from "../repositories/cardRepository.js"
-import * as userRepository from "../repositories/userRepository.js"
+import { userCheck } from "../utils/utils.js"
 import { CardData } from "../Types/cardType.js"
 import Cryptr from "cryptr"
 
 const cryptr = new Cryptr(process.env.SECRET_KEY)
 
-async function getCardsByUserId(id:number){
-    const existingUser = await userRepository.findById(id)
-    if(!existingUser){
-        throw{code:'NotFound', message: 'User not found'}
-    }
-
-    const result = await cardRepository.getCardsByUserId(id)
+async function getCardsByUserId(userId:number){
+    await userCheck(userId)
+    const result = await cardRepository.getCardsByUserId(userId)
     return result
 }
 
@@ -44,17 +40,15 @@ async function createCard(card: CardData){
 }
 
 async function deleteCard(id:number, userId:number){
-    const result = await validateCard(id, userId)
+    await validateCard(id, userId)
     await cardRepository.deleteCard(id)
 }
 
 async function validateCard(id:number, userId:number){
-    const existingCard = await cardRepository.getCardById(id)
-    if(!existingCard){
+    const result = await cardRepository.getCardById(id)
+    if(!result){
         throw {code: "NotFound", message: "Card not found"}
     }
-
-    const result =await cardRepository.getCardById(id)
     if(result.userId !== userId){
         throw {code: "Unauthorized", message: "Card does not belong to this user"}
     }

@@ -5,9 +5,8 @@ import * as credentialService from "../services/credentialService.js"
 
 
 export async function getCredentials(req: Request, res: Response){
-    const id:number = res.locals.id.id
-    console.log(id)
-    const result = await credentialService.getCredentialsByUserId(id)
+    const userId:number = res.locals.id.id
+    const result = await credentialService.getCredentialsByUserId(userId)
     res.status(200).send(result)
 }
 
@@ -20,13 +19,13 @@ export async function getCredentialById(req: Request, res: Response) {
 
 export async function createCredential(req:Request, res: Response) {
     const {url, title, username, password} = req.body
-    const id:number = res.locals.id.id
+    const userId:number = res.locals.id.id
     const credential:CredentialData ={
         url,
         title,
         username,
         password,
-        userId:id
+        userId
     }
 
     await credentialService.createCredential(credential)
