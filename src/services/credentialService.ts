@@ -7,13 +7,11 @@ const cryptr = new Cryptr(process.env.SECRET_KEY)
 
 async function getCredentialsByUserId(id:number){
     const existingUser = await userRepository.findById(id)
-    console.log(existingUser)
     if(!existingUser){
         throw {code: "NotFound", message: "User not found"}
     }
 
     const result =await credentialRepository.getCredentialsByUserId(id)
-    console.log(result)
     return result
 }
 

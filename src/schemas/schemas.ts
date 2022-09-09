@@ -10,5 +10,9 @@ export const schemas = {
     title: joi.string().required(),
     username: joi.string().required(),
     password: joi.string().required(),
+  }),
+  noteSchema: joi.object().keys({
+    title: joi.string().max(50).required(),
+    note: joi.string().max(1000).required()
   })
 };

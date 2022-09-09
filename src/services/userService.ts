@@ -11,7 +11,12 @@ async function createUser(CreateUserData: CreateUserData){
         throw { code: "Conflict", message: "Email already registered"}
     }
 
-    await userRepository.createUser(CreateUserData);
+    const passwordEncrypted = bcrypt.hashSync(CreateUserData.password, 10);
+    const userData:CreateUserData = {
+        email: CreateUserData.email,
+        password: passwordEncrypted
+    }
+    await userRepository.createUser(userData);
 }
 
 async function signIn(CreateUserData: CreateUserData){

@@ -3,6 +3,7 @@ import { createCredential, deleteCredential, getCredentialById, getCredentials }
 import { schemaValidator } from "../middlewares/schemaValidator.js";
 import { tokenValidationMiddleware } from "../middlewares/tokenMiddleware.js";
 import { schemas } from "../schemas/schemas.js";
+
 const credentialRouter = Router()
 
 credentialRouter.get("/credentials", tokenValidationMiddleware, getCredentials)
