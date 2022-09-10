@@ -19,6 +19,7 @@ model Users {
   safenotes  Note[]
   cards      Card[]
   wifis      Wifi[]
+  Documents  Documents[]
 }
 
 model Credential {
@@ -72,4 +73,23 @@ model Wifi {
   password    String
   users       Users  @relation(fields: [userId], references: [id])
   userId      Int
+}
+
+model Documents {
+  id           Int          @id @default(autoincrement())
+  type         DocumentType
+  fullName     String
+  emissionDate String
+  expireDate   String
+  number       String
+  issuer       String
+  users        Users        @relation(fields: [userId], references: [id])
+  userId       Int
+
+  @@unique([userId, type])
+}
+
+enum DocumentType {
+  RG
+  CNH
 }

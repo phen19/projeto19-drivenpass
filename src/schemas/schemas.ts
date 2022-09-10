@@ -32,6 +32,14 @@ export const schemas = {
     networkName: joi.string().required(),
     title: joi.string().required(),
     password: joi.string().required(),
+  }),
+  documentSchema: joi.object().keys({
+    fullName: joi.string().required(),
+    type: joi.string().valid('RG', 'CNH'),
+    emissionDate: joi.string().length(10).pattern(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/).message(`"Emission date" must be in DD/MM/YYYY format`).required(),
+    expireDate: joi.string().length(10).pattern(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/).message(`"Expire date" must be in DD/MM/YYYY format`).required(),
+    number: joi.string().required(),
+    issuer: joi.string().required()
   })
 };
 
