@@ -9,13 +9,13 @@ export async function tokenValidationMiddleware(req:Request, res: Response, next
         throw {code: 'Unauthorized', message: 'Token must been sent'}
     }
 
-    try {
-        const secretKey:string = process.env.JWT_SECRET;
+   /*  try { */
+        const secretKey:string= process.env.JWT_SECRET;
         const id:string|JwtPayload = jwt.verify(token, secretKey);
         res.locals.id = id;
         next();
-      } catch (error) {
+/*       } catch (error) {
         throw {code: 'Unauthorized', message: 'Invalid token'}
-      }
+      } */
   
 }
