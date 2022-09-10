@@ -5,13 +5,18 @@ export async function tokenValidationMiddleware(req:Request, res: Response, next
     const authorization = req.headers.authorization;
     const token = authorization?.replace("Bearer ", "").trim();
 
+    type MyToken = {
+        id: string
+        iat: number
+      }
+
     if(!token){
         throw {code: 'Unauthorized', message: 'Token must been sent'}
     }
 
         const secretKey:string | undefined= process.env.JWT_SECRET;
-        const id:string|JwtPayload = jwt.verify(token, secretKey!);
-        res.locals.id = id;
+        const verify : string|JwtPayload  = jwt.verify(token, secretKey!) as MyToken;
+        res.locals.userId= verify.id;
         next();
   
 }
