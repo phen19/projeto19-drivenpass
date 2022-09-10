@@ -1,13 +1,13 @@
 import * as cardRepository from "../repositories/cardRepository.js"
 import { userCheck } from "../utils/utils.js"
-import { CardData } from "../Types/cardType.js"
+import { CardData, ResultCard } from "../Types/cardType.js"
 import Cryptr from "cryptr"
 
-const cryptr = new Cryptr(process.env.SECRET_KEY)
+const cryptr = new Cryptr(process.env.SECRET_KEY!)
 
 async function getCardsByUserId(userId:number){
     await userCheck(userId)
-    const result = await cardRepository.getCardsByUserId(userId)
+    const result:ResultCard[]= await cardRepository.getCardsByUserId(userId)
     result.forEach((el)=> {delete el.password
         delete el.securityCode})
     return result

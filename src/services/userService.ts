@@ -29,8 +29,8 @@ async function signIn(CreateUserData: CreateUserData){
         throw { code: "Unauthorized", message: "Incorrect e-mail and/or password"}
     }
 
-    const secretKey:string = process.env.JWT_SECRET
-    const token:string = jwt.sign({id: existingEmail.id}, secretKey)
+    const secretKey:string | undefined = process.env.JWT_SECRET
+    const token:string = jwt.sign({id: existingEmail.id}, secretKey!)
     return token
 }
 

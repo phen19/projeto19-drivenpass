@@ -1,13 +1,13 @@
 import * as wifiRepository from "../repositories/wifiRepository.js"
 import { userCheck } from "../utils/utils.js"
-import { WifiData } from "../Types/wifiType.js"
+import { WifiData, ResultWifi } from "../Types/wifiType.js"
 import Cryptr from "cryptr"
 
-const cryptr = new Cryptr(process.env.SECRET_KEY)
+const cryptr = new Cryptr(process.env.SECRET_KEY!)
 
 async function getWifisByUserId(userId:number){
     await userCheck(userId)
-    const result = await wifiRepository.getWifisByUserId(userId)
+    const result:ResultWifi[]= await wifiRepository.getWifisByUserId(userId)
     result.forEach((el)=> {delete el.password})
     return result
 }

@@ -1,14 +1,14 @@
 import * as credentialRepository from "../repositories/credentialRepository.js"
 import { userCheck } from "../utils/utils.js"
-import { CredentialData } from "../Types/credentialType.js"
+import { CredentialData, ResultCredential } from "../Types/credentialType.js"
 import Cryptr from "cryptr"
 
-const cryptr = new Cryptr(process.env.SECRET_KEY)
+const cryptr = new Cryptr(process.env.SECRET_KEY!)
 
 async function getCredentialsByUserId(userId:number){
     await userCheck(userId)
-    const result = await credentialRepository.getCredentialsByUserId(userId)
-    result.forEach((el)=> {delete el.password})
+    const result: ResultCredential[] = await credentialRepository.getCredentialsByUserId(userId)
+    result.forEach((el)=>  delete el.password)
     return result
 }
 
