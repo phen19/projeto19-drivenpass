@@ -2,7 +2,9 @@ import * as cardRepository from "../repositories/cardRepository.js"
 import { userCheck } from "../utils/utils.js"
 import { CardData, ResultCard } from "../Types/cardType.js"
 import Cryptr from "cryptr"
+import dotenv from "dotenv"
 
+dotenv.config();
 const cryptr = new Cryptr(process.env.SECRET_KEY!)
 
 async function getCardsByUserId(userId:number){

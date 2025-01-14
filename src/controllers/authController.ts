@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import { CreateUserData } from "../Types/userTypes.js";
+import { CreateUserData, Auth } from "../Types/userTypes.js";
 import * as userService from "../services/userService.js";
 
 export async function signUp(req: Request, res: Response){
@@ -18,6 +18,6 @@ export async function signIn(req: Request, res: Response){
         email: email,
         password: password
     }
-    const result:string = await userService.signIn(userData)
+    const result: Auth = await userService.signIn(userData)
     res.status(200).send(result)
 }

@@ -2,9 +2,11 @@ import * as credentialRepository from "../repositories/credentialRepository.js"
 import { userCheck } from "../utils/utils.js"
 import { CredentialData, ResultCredential } from "../Types/credentialType.js"
 import Cryptr from "cryptr"
+import dotenv from "dotenv"
+
+dotenv.config();
 
 const cryptr = new Cryptr(process.env.SECRET_KEY!)
-
 async function getCredentialsByUserId(userId:number){
     await userCheck(userId)
     const result: ResultCredential[] = await credentialRepository.getCredentialsByUserId(userId)

@@ -31,7 +31,7 @@ async function signIn(CreateUserData: CreateUserData){
 
     const secretKey:string | undefined = process.env.JWT_SECRET
     const token:string = jwt.sign({id: existingEmail.id}, secretKey!)
-    return token
+    return { userId: existingEmail.id, token: token}
 }
 
 export{

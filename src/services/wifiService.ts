@@ -2,6 +2,9 @@ import * as wifiRepository from "../repositories/wifiRepository.js"
 import { userCheck } from "../utils/utils.js"
 import { WifiData, ResultWifi } from "../Types/wifiType.js"
 import Cryptr from "cryptr"
+import dotenv from "dotenv"
+
+dotenv.config();
 
 const cryptr = new Cryptr(process.env.SECRET_KEY!)
 
