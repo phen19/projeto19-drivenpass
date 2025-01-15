@@ -1,5 +1,5 @@
 import cors from "cors";
-import express, {json} from "express";
+import express, {json, NextFunction, Request, Response} from "express";
 import 'express-async-errors';
 import router from "./routers/index.js";
 import errorHandler from "./middlewares/errorHandler.js";
@@ -11,8 +11,11 @@ const app = express()
 app.use(json());
 app.use(cors());
 app.use(router);
-app.use(errorHandler);
 
+// Middleware de erro explicitamente definido 
+app.use((error: any, req: Request, res: Response, next: NextFunction) => { 
+    errorHandler(error, req, res, next);
+})
 
 const PORT: number = Number(process.env.PORT) || 5000
 
